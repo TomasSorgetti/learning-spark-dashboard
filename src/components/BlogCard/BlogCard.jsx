@@ -1,24 +1,22 @@
+import { Link } from "react-router-dom";
 import deleteImg from "../../assets/cancel.png";
 
-const BlogCard = ({ post,handleDelete }) => {
+const BlogCard = ({ post }) => {
   const fecha = new Date(post.createdAt);
   const date = `${fecha.getDate()}/${
     fecha.getMonth() + 1
   }/${fecha.getFullYear()}`;
 
-
   return (
-    <div className="font-poppins flex gap-2 text-white bg-titleColor px-10 py-6 rounded-md justify-between">
+    <Link
+      to={`/blog/${post.id}`}
+      className="font-poppins flex gap-2 text-white bg-titleColor hover:bg-subTitleColor px-10 py-6 rounded-md justify-between"
+    >
       <div className="font-semibold w-full overflow-hidden h-5">
         <h3>{post.card_title}</h3>
       </div>
-      <div className="flex justify-between w-60">
-        <p className="">{date}</p>
-        <button onClick={()=>handleDelete(post.id)}>
-          <img className="w-6" src={deleteImg} alt="delete button" />
-        </button>
-      </div>
-    </div>
+      <p className="">{date}</p>
+    </Link>
   );
 };
 

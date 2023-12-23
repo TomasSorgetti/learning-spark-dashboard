@@ -96,8 +96,8 @@ export const getAllPosts = () => {
       });
   };
 };
-export const searchPosts = (partialTitle,direction) => {
-  const URL = `${URL_BASE}/posts?partialTitle=${partialTitle}&direction=${direction}`;
+export const searchPosts = (partialTitle,filter,direction) => {
+  const URL = `${URL_BASE}/posts?partialTitle=${partialTitle}&filter=${filter}&direction=${direction}`;
   return async (dispatch) => {
     await axios
       .get(URL)

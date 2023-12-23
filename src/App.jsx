@@ -8,6 +8,7 @@ import DashboardHome from "../src/pages/Home/DashboardHome"
 import DashboardNewBlog from "../src/pages/AddNewBlog/DashboardNewBlog"
 import DashboardBlog from "../src/pages/Blog/DashboardBlog"
 import DashboardUsers from "../src/pages/Users/DashboardUsers";
+import BlogEdit from "./pages/BlogEdit/BlogEdit";
 
 function App() {
 
@@ -20,8 +21,9 @@ function App() {
       </Route>
       <Route element={<ProtectedRoutes />}>
         <Route path="/home" element={<DashboardHome />} />
-        <Route path="/add-new-blog" element={<DashboardNewBlog />} />
         <Route path="/blog" element={<DashboardBlog />} />
+        <Route path="/blog/:id" element={<BlogEdit />} />
+        <Route path="/add-new-blog" element={<DashboardNewBlog />} />
         <Route path="/users" element={<DashboardUsers />} />
       </Route>
     </Routes>

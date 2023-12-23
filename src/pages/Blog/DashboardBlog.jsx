@@ -1,23 +1,22 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts, searchPosts } from "../../redux/actions";
+import { searchPosts } from "../../redux/actions";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import Navigation from "../../components/Navigation/Navigation";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
-import { URL_BASE } from "../../utils/url";
 
 const DashboardBlog = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state);
   const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("name");
   const [direction, setDirection] = useState("asc");
-  const token = localStorage.getItem("token");
+  
 
   useEffect(() => {
-    dispatch(searchPosts(search,direction));
-  }, [search,direction]);
+    dispatch(searchPosts(search,filter,direction));
+  }, [search,direction,filter]);
 
   const changeDirection = (event) => {
     setDirection(event.target.value);
@@ -25,22 +24,12 @@ const DashboardBlog = () => {
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
-  const handleDelete = async (id) => {
-    const URL = `${URL_BASE}/posts/${id}`;
-    if (confirm("Are you sure to delete blog?")) {
-      await axios
-        .delete(URL, {
-          headers: {
-            authorization: `${token}`,
-          },
-        })
-        .then((response) => {
-          if (response) {
-            dispatch(getAllPosts());
-          }
-        });
-    }
+  const handleFilter = (event) => {
+    setFilter(event.target.value);
   };
+
+
+
 
   return (
     <div>
@@ -60,6 +49,13 @@ const DashboardBlog = () => {
           type="text"
         />
         <select
+          onChange={handleFilter}
+          className="border-[1px] border-black rounded-sm"
+        >
+          <option value="name">name</option>
+          <option value="date">date</option>
+        </select>
+        <select
           onChange={changeDirection}
           className="border-[1px] border-black rounded-sm"
         >
@@ -69,7 +65,7 @@ const DashboardBlog = () => {
       </article>
       <article className="px-60 py-10 flex flex-col gap-4">
         {posts?.map((post) => (
-          <BlogCard key={post.id} post={post} handleDelete={handleDelete} />
+          <BlogCard key={post.id} post={post} />
         ))}
       </article>
     </div>

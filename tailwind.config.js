@@ -6,6 +6,7 @@ export default {
       colors: {
         titleColor: "#1E1439",
         subTitleColor: "#211842",
+        hoverColor: "#211842",
         textColor: "#36314E",
         buttonColor: "#FE3F60",
         lilaColor: "#845AF7",
