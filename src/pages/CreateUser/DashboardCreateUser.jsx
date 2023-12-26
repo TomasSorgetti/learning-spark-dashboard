@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -97,7 +96,7 @@ const DashboardCreateUser = () => {
             />
           </div>
         </div>
-        <Link to="/dashboard">You already have account?</Link>
+        <Link to="/">You already have account?</Link>
         <button className="bg-buttonColor text-[1.5rem] font-semibold px-6 py-2 w-32 rounded-full">
           Create
         </button>

@@ -12,9 +12,9 @@ const Navigation = () => {
         DASHBOARD
       </h1>
       <div className="flex gap-6 items-center">
-        <Link to="/home">Home</Link>
-        <Link to="/users">Users</Link>
-        <Link to="/blog">Blog</Link>
+        <Link className={`${window.location.pathname === "/home" && "font-bold"}`} to="/home">Home</Link>
+        <Link className={`${window.location.pathname === "/users" && "font-bold"}`} to="/users">Users</Link>
+        <Link className={`${window.location.pathname === "/blog" && "font-bold"}`} to="/blog">Blog</Link>
         <button onClick={handleLogOut}>Logout</button>
       </div>
     </div>

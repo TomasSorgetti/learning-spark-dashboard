@@ -5,6 +5,7 @@ import {
   GET_USERS_ORDERED,
   GET_POSTS,
   SEARCH_POSTS,
+  GET_SUBJECTS,
 } from "./actionTypes";
 
 const URL_BASE = "http://localhost:3001";
@@ -96,14 +97,30 @@ export const getAllPosts = () => {
       });
   };
 };
-export const searchPosts = (partialTitle,filter,direction) => {
-  const URL = `${URL_BASE}/posts?partialTitle=${partialTitle}&filter=${filter}&direction=${direction}`;
+export const searchPosts = (partialTitle,subject) => {
+  const URL = `${URL_BASE}/posts?partialTitle=${partialTitle}&subj=${subject}`;
   return async (dispatch) => {
     await axios
       .get(URL)
       .then((response) => {
         dispatch({
           type: SEARCH_POSTS,
+          payload: response.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+export const searchSubjects = () => {
+  const URL = `${URL_BASE}/subjects`;
+  return async (dispatch) => {
+    await axios
+      .get(URL)
+      .then((response) => {
+        dispatch({
+          type: GET_SUBJECTS,
           payload: response.data,
         });
       })

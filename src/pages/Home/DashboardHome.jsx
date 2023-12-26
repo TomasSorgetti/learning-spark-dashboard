@@ -7,23 +7,27 @@ import ChartBar from "../../components/ChartBar/ChartBar";
 import Modal from "../../components/HomeModals/Modal";
 
 const DashboardHome = () => {
-  const [views, setViews] = useState(0);
+  const [views, setViews] = useState({});
   const [balance, setBalance] = useState({});
   const token = localStorage.getItem("token");
   const [active, setActive] = useState(false);
   const [activeIncome, setActiveIncome] = useState(false);
   const fetchBalanceData = async () => {
-    await axios
-      .get(`${URL_BASE}/balance`, {
-        headers: {
-          authorization: `${token}`,
-        },
-      })
-      .then((res) => {
-        if (res) {
-          setBalance(res.data[0]);
-        }
-      });
+    try {
+      await axios
+        .get(`${URL_BASE}/balance`, {
+          headers: {
+            authorization: `${token}`,
+          },
+        })
+        .then((res) => {
+          if (res) {
+            setBalance(res.data);
+          }
+        });
+    } catch (error) {
+      console.log("error fetching balance database", error);
+    }
   };
   useEffect(() => {
     try {
@@ -47,18 +51,20 @@ const DashboardHome = () => {
   }, []);
 
   useEffect(() => {
-    try {
-      fetchBalanceData();
-    } catch (error) {
-      console.log("error fetching balance database", error);
-    }
+    fetchBalanceData();
   }, []);
 
   const handleClick = () => {
-    setActive(!active);
+    setActiveIncome(false);
+    setActive(true);
   };
   const handleClickIncome = () => {
-    setActiveIncome(!activeIncome);
+    setActive(false);
+    setActiveIncome(true);
+  };
+  const handleCancel = () => {
+    setActive(false);
+    setActiveIncome(false);
   };
   const handleSend = async (first, label) => {
     if (first !== 0) {
@@ -70,7 +76,7 @@ const DashboardHome = () => {
           URL = `${URL_BASE}/balance/expenses`;
         }
         await axios
-          .put(
+          .post(
             URL,
             { value: first },
             {
@@ -96,20 +102,36 @@ const DashboardHome = () => {
         <div className="flex justify-between">
           <HomeCard
             text="Income"
-            metric={balance.income ? `$${balance.income}` : "$0"}
+            metric={
+              Object.keys(balance).length !== 0
+                ? `$USD ${balance.total.totalIncome}`
+                : "$USD 0"
+            }
             addNew="income"
             handleClick={handleClickIncome}
           />
           <HomeCard
             text="Expenses"
-            metric={balance.expenses ? `$-${balance.expenses}` : "$0"}
+            metric={
+              Object.keys(balance).length !== 0
+                ? `$USD ${balance.total.totalExpenses}`
+                : "$USD 0"
+            }
             addNew="expenses"
             handleClick={handleClick}
           />
-          <HomeCard text="Views" metric={views} />
-          <HomeCard text="Last week views" metric={views} />
+          <HomeCard
+            text="Views"
+            metric={Object.keys(views).length !== 0 ? `${views.total}` : "0"}
+          />
+          <HomeCard
+            text="Last week views"
+            metric={
+              Object.keys(views).length !== 0 ? `${views.lastMonth}` : "0"
+            }
+          />
         </div>
-        <div className="w-full">
+        <div className="w-full h-full">
           <ChartBar />
         </div>
         <Modal
@@ -117,12 +139,14 @@ const DashboardHome = () => {
           active={activeIncome}
           handleClick={handleClickIncome}
           handleSend={handleSend}
+          handleCancel={handleCancel}
         />
         <Modal
           label="Expenses"
           active={active}
           handleClick={handleClick}
           handleSend={handleSend}
+          handleCancel={handleCancel}
         />
       </div>
     </div>

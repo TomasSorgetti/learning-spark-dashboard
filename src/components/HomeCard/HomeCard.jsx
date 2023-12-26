@@ -9,11 +9,14 @@ const HomeCard = ({ text, metric, addNew,handleClick}) => {
         <span className="text-textColor">{text}</span>
         <p className="text-titleColor font-semibold text-[1.5rem]">{metric}</p>
       </div>
-      {addNew &&
-        <button className="absolute top-4 right-4" onClick={handleClick}>
+      {addNew && (
+        <button
+          className="text-white absolute top-4 right-4 bg-gray-500 hover:bg-gray-400 focus:bg-gray-300 w-6 h-6 rounded-md "
+          onClick={handleClick}
+        >
           +
         </button>
-      }
+      )}
     </div>
   );
 };

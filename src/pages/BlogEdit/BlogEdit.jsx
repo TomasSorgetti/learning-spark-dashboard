@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navigation from "../../components/Navigation/Navigation";
-import EditorComponent from "../../components/Editor/EditorComponent";
 import ReactQuill from "react-quill";
 import axios from "axios";
 import { URL_BASE } from "../../utils/url";
 import headerImg from "../../assets/blog-header2.png";
-import { useDispatch } from "react-redux";
-import { getAllPosts } from "../../redux/actions";
 
 const BlogEdit = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
   const { id } = useParams();
   const URL = `${URL_BASE}/posts/${id}`;
   const token = localStorage.getItem("token");
@@ -103,7 +99,14 @@ const BlogEdit = () => {
         />
       </div>
 
-      <EditorComponent setData={setData} data={data} />
+      <section>
+        <ReactQuill
+          className="quill"
+          theme="snow" // Puedes cambiar el tema según tus preferencias
+          value={data.text}
+          onChange={(value) => setData({ ...data, text: value })}
+        />
+      </section>
       <section className="flex gap-20 mt-20">
         <div className="blog-card flex flex-col font-poppins blogCard h-[550px] w-[400px] rounded-[10px] bg-subTitleColor text-white">
           <div className="relative w-full h-[450px] bg-gray-300 overflow-hidden">

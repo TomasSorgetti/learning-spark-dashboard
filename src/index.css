@@ -2,3 +2,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+/********** dashboard card quill ***********/
+.card-quill .ql-toolbar {
+    display: none;
+}
+.card-quill-container .card-quill {
+    height: 128px !important;
+
+}
+.card-quill-container .card-quill .ql-editor p{
+    font-size: 1rem !important;
+}
+.card_preview_text p strong{
+    font-weight: 700;
+}
+
+.quill {
+    height: 400px;
+    color: #211842;
+}
+
+.quill ul {
+    font-size: 2rem !important;
+    color: #211842;
+}
+
+.quill ul li::before {
+    color: #FE3F60;
+}
+
+.quill h1 {
+    text-align: center;
+    font-size: 3.75rem !important;
+    font-weight: 700;
+    margin-bottom: 60px !important;
+}
+
+.quill h2 {
+    font-size: 3rem !important;
+    font-weight: 600;
+    margin-bottom: 20px !important;
+}
+
+.quill h3 {
+    font-size: 2.25rem !important;
+    font-weight: 600;
+    margin-bottom: 5px !important;
+}
+
+.quill p {
+    font-size: 2rem !important;
+    font-weight: 300;
+}
+
+.quill p strong,
+.quill p a {
+    font-weight: 700;
+}

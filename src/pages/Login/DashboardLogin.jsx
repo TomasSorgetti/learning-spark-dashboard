@@ -67,7 +67,7 @@ const DashboardLogin = () => {
             />
           </div>
         </div>
-        <Link to="/dashboard/createUser">You dont have account?</Link>
+        <Link to="/createUser">You dont have account?</Link>
         <button className="bg-buttonColor text-[1.5rem] font-semibold px-6 py-2 w-32 rounded-full">
           Login
         </button>
