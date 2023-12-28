@@ -6,7 +6,10 @@
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
-
+/********** Editor Buttons ************/
+.editor_button_handle:hover .editor_buttons_cont{
+    display: flex;
+}
 /********** dashboard card quill ***********/
 .card-quill .ql-toolbar {
     display: none;

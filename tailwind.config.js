@@ -13,6 +13,7 @@ export default {
         blueColor: "#632AFF",
         yellowColor: "#FFC600",
         greenColor: "#1ADDC2",
+        lightGrayColor: "#b3b3b1",
       },
       fontFamily: {
         poppins: ["Poppins"],
